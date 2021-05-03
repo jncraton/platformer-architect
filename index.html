@@ -17,30 +17,74 @@
   <body>
     <canvas></canvas>
     <script>
+    let player = {
+      x: 3,
+      y: 3,
+      vx: 0,
+      vy: 0,
+    }
+
+    const playerOnGround = () => {
+      return player.y == 0
+    }
+    
     const draw = () => {
       let canvas = document.querySelector('canvas')
       let ctx = canvas.getContext('2d')
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
       canvas.height = window.innerHeight
       canvas.width = window.innerWidth
 
       ctx.translate(0, canvas.height)
       ctx.scale(canvas.height / 256, -canvas.height / 256)
+      ctx.imageSmoothingEnabled = false
 
+      // Physics
+      if (player.vy <= 0) player.vy -= .1
+      player.y += player.vy / 10
+      player.x += player.vx / 10
+
+      if (player.y < 0) {
+        player.y = 0
+        player.vy = 0
+      }
+      
       // Get a full-height side scrolling canvas
       let levelHeight = 16
       let levelWidth = 256
 
+      // Tiles
       for (let x = 0; x < levelWidth; x+=1) {
         for (let y = 0; y <= levelHeight; y += 1) {
           ctx.fillStyle = `rgb(0,${(x*16) % 256},${y*16})`
-          ctx.fillRect(x*16, y*16, 15, 15)
+          ctx.fillRect(x*16, y*16, 16, 16)
         }
       }
+
+      // Actors
+      ctx.fillStyle = `rgb(255,0,0)`
+      ctx.fillRect(player.x*16, player.y*16, 16, 16)
+      
 
       requestAnimationFrame(draw)
     }
 
     draw()
+
+    document.addEventListener('keydown', e => {
+      if (e.key == 'ArrowRight') player.vx = 1
+      if (e.key == 'ArrowLeft') player.vx = -1
+      if (e.key == ' ' && playerOnGround()) {
+        player.vy = 3
+        setTimeout(() => player.vy = 0, 300)
+      }
+    })
+
+    document.addEventListener('keyup', e => {
+      if (e.key == 'ArrowRight') player.vx = 0
+      if (e.key == 'ArrowLeft') player.vx = 0
+      if (e.key == ' ') player.vy = 0
+    })
     </script>
   </body>
 </html>
