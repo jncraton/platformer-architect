@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title></title>
+    <style>
+    body, html, canvas {
+      padding:0;
+      margin:0;
+      overflow:hidden;
+    }
+    </style>
+  </head>
+
+  <body>
+    <canvas></canvas>
+    <script>
+    const draw = () => {
+      let canvas = document.querySelector('canvas')
+      let ctx = canvas.getContext('2d')
+      canvas.height = window.innerHeight
+      canvas.width = window.innerWidth
+
+      ctx.translate(0, canvas.height)
+      ctx.scale(canvas.height / 256, -canvas.height / 256)
+
+      // Get a full-height side scrolling canvas
+      let levelHeight = 16
+      let levelWidth = 256
+
+      for (let x = 0; x < levelWidth; x+=1) {
+        for (let y = 0; y <= levelHeight; y += 1) {
+          ctx.fillStyle = `rgb(0,${(x*16) % 256},${y*16})`
+          ctx.fillRect(x*16, y*16, 15, 15)
+        }
+      }
+
+      requestAnimationFrame(draw)
+    }
+
+    draw()
+    </script>
+  </body>
+</html>
