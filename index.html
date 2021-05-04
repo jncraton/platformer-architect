@@ -27,6 +27,10 @@
     const playerOnGround = () => {
       return player.y == 0
     }
+
+    const levelHeight = 8
+    const levelWidth = 256
+    const tileSize = 16
     
     const draw = () => {
       let canvas = document.querySelector('canvas')
@@ -36,7 +40,7 @@
       canvas.width = window.innerWidth
 
       ctx.translate(0, canvas.height)
-      ctx.scale(canvas.height / 256, -canvas.height / 256)
+      ctx.scale(canvas.height / levelHeight / tileSize, -canvas.height / levelHeight / tileSize)
       ctx.imageSmoothingEnabled = false
 
       // Physics
@@ -50,20 +54,18 @@
       }
       
       // Get a full-height side scrolling canvas
-      let levelHeight = 16
-      let levelWidth = 256
 
       // Tiles
       for (let x = 0; x < levelWidth; x+=1) {
         for (let y = 0; y <= levelHeight; y += 1) {
-          ctx.fillStyle = `rgb(0,${(x*16) % 256},${y*16})`
-          ctx.fillRect(x*16, y*16, 16, 16)
+          ctx.fillStyle = `rgb(0,${(x*tileSize) % 256},${y*tileSize})`
+          ctx.fillRect(x*tileSize, y*tileSize, tileSize, tileSize)
         }
       }
 
       // Actors
       ctx.fillStyle = `rgb(255,0,0)`
-      ctx.fillRect(player.x*16, player.y*16, 16, 16)
+      ctx.fillRect(player.x*tileSize, player.y*tileSize, tileSize, tileSize)
       
 
       requestAnimationFrame(draw)
