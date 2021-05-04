@@ -44,6 +44,11 @@
       ctx.imageSmoothingEnabled = false
 
       // Physics
+      if (player.jumpFramesRemaining) {
+        player.jumpFramesRemaining -= 1
+        if (!player.jumpFramesRemaining) player.vy = 0
+      }
+      
       if (player.vy <= 0) player.vy -= .1
       player.y += player.vy / 10
       player.x += player.vx / 10
@@ -78,14 +83,17 @@
       if (e.key == 'ArrowLeft') player.vx = -1
       if (e.key == ' ' && playerOnGround()) {
         player.vy = 3
-        setTimeout(() => player.vy = 0, 300)
+        player.jumpFramesRemaining = 20
       }
     })
 
     document.addEventListener('keyup', e => {
       if (e.key == 'ArrowRight') player.vx = 0
       if (e.key == 'ArrowLeft') player.vx = 0
-      if (e.key == ' ') player.vy = 0
+      if (e.key == ' ' && player.jumpFramesRemaining) { 
+        player.vy = 0
+        player.jumpFramesRemaining = 0
+      }
     })
     </script>
   </body>
