@@ -28,6 +28,8 @@
     let screen = {
       x: 0,
     }
+
+    let frame = 0
     
     const playerOnGround = () => {
       return player.y == 0
@@ -96,9 +98,12 @@
       
       ctx.translate(player.x*tileSize,player.y*tileSize)
       ctx.scale(player.direction, -1)
+      ctx.rotate(.25*Math.sin(6 * frame * Math.PI/180))
       ctx.fillText("🐈", 0, 0)
       ctx.restore()
 
+      frame += 1
+      frame = frame % 60
       requestAnimationFrame(draw)
     }
 
