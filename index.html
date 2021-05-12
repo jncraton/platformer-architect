@@ -91,6 +91,9 @@
 
       // Actors
       ctx.save()
+      ctx.textBaseline = 'bottom'
+      ctx.textAlign = 'center'
+      
       ctx.translate(player.x*tileSize,player.y*tileSize)
       ctx.scale(player.direction, -1)
       ctx.fillText("🐈", 0, 0)
