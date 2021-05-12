@@ -63,6 +63,8 @@
         player.vy = 0
       }
 
+      player.x = Math.max(3, player.x)
+
       // Adjust screen-x based on player x
       if (screen.x - player.x > canvas.width - tileSize) {
         screen.x += 1
