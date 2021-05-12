@@ -22,6 +22,7 @@
       y: 3,
       vx: 0,
       vy: 0,
+      direction: -1, // -1 is right, 1 is left
     }
 
     const playerOnGround = () => {
@@ -43,6 +44,11 @@
       ctx.scale(canvas.height / levelHeight / tileSize, -canvas.height / levelHeight / tileSize)
       ctx.imageSmoothingEnabled = false
 
+      // Set player direction
+      if (Math.sign(player.vx)) {
+        player.direction = -Math.sign(player.vx)
+      }
+
       // Physics
       if (player.jumpFramesRemaining) {
         player.jumpFramesRemaining -= 1
@@ -57,6 +63,11 @@
         player.y = 0
         player.vy = 0
       }
+
+      // Adjust screen-x based on player x
+      if (screen.x - player.x > canvas.width - tileSize) {
+        screen.x += 1
+      }
       
       // Get a full-height side scrolling canvas
 
@@ -69,9 +80,11 @@
       }
 
       // Actors
-      ctx.fillStyle = `rgb(255,0,0)`
-      ctx.fillRect(player.x*tileSize, player.y*tileSize, tileSize, tileSize)
-      
+      ctx.save()
+      ctx.translate(player.x*tileSize,player.y*tileSize)
+      ctx.scale(player.direction, -1)
+      ctx.fillText("🐈", 0, 0)
+      ctx.restore()
 
       requestAnimationFrame(draw)
     }
