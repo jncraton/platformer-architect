@@ -93,12 +93,13 @@
 
       // Actors
       ctx.save()
+      ctx.font = '16px noto sans'
       ctx.textBaseline = 'bottom'
       ctx.textAlign = 'center'
       
       ctx.translate(player.x*tileSize,player.y*tileSize)
       ctx.scale(player.direction, -1)
-      ctx.rotate(.25*Math.sin(6 * frame * Math.PI/180))
+      ctx.rotate(.1*Math.sin(6 * frame * Math.PI/180))
       ctx.fillText("🐈", 0, 0)
       ctx.restore()
 
