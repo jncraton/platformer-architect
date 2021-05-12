@@ -25,6 +25,10 @@
       direction: -1, // -1 is right, 1 is left
     }
 
+    let screen = {
+      x: 0,
+    }
+    
     const playerOnGround = () => {
       return player.y == 0
     }
@@ -40,11 +44,6 @@
       canvas.height = window.innerHeight
       canvas.width = window.innerWidth
 
-      ctx.translate(0, canvas.height)
-      ctx.scale(canvas.height / levelHeight / tileSize, -canvas.height / levelHeight / tileSize)
-      ctx.imageSmoothingEnabled = false
-
-      // Set player direction
       if (Math.sign(player.vx)) {
         player.direction = -Math.sign(player.vx)
       }
@@ -68,6 +67,15 @@
       if (screen.x - player.x > canvas.width - tileSize) {
         screen.x += 1
       }
+
+      // Set canvas transforms
+      screen.x = -player.x + 3
+      
+      ctx.translate(screen.x*canvas.height / levelHeight, canvas.height)
+      ctx.scale(canvas.height / levelHeight / tileSize, -canvas.height / levelHeight / tileSize)
+      ctx.imageSmoothingEnabled = false
+
+      // Set player direction
       
       // Get a full-height side scrolling canvas
 
