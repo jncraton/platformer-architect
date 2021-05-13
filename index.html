@@ -11,11 +11,15 @@
       margin:0;
       overflow:hidden;
     }
+    #properties {
+      position:fixed;
+      display:none;
+    }
     </style>
   </head>
 
   <body>
-    <section>
+    <section id=properties>
     <input name=pc value="🐈"/>
     </section>
     <canvas></canvas>
@@ -113,9 +117,21 @@
 
     draw()
 
+    let editing = false
+    
+    function toggleEditMode() {
+      editing = !editing
+      if (editing) {
+        document.querySelector("#properties").style.display = 'none'
+      } else {
+        document.querySelector("#properties").style.display = 'block'
+      }
+    }
+
     document.addEventListener('keydown', e => {
       if (e.key == 'ArrowRight') player.vx = 1
       if (e.key == 'ArrowLeft') player.vx = -1
+      if (e.key == 'Escape') toggleEditMode()
       if (e.key == ' ' && playerOnGround()) {
         player.vy = 3
         player.jumpFramesRemaining = 20
