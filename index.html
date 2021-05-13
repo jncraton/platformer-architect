@@ -99,7 +99,7 @@
       
       ctx.translate(player.x*tileSize,player.y*tileSize)
       ctx.scale(player.direction, -1)
-      ctx.rotate(.1*Math.sin(6 * frame * Math.PI/180))
+      ctx.rotate(.1*Math.sin(6 * frame * Math.PI/180)+player.vy/6)
       ctx.fillText("🐈", 0, 0)
       ctx.restore()
 
