@@ -48,7 +48,7 @@
     let frame = 0
     
     const playerOnGround = () => {
-      return level[Math.ceil(player.x)][Math.round(player.y)] == ground
+      return level[Math.round(player.x)][Math.round(player.y)] == ground
     }
 
     let level = []
@@ -60,11 +60,12 @@
       }
     }
 
-    level[0][0] = 1;
-    level[1][0] = 1;
-    level[2][0] = 1;
     level[3][0] = 1;
     level[4][0] = 1;
+    level[5][2] = 1;
+    level[6][4] = 1;
+    level[7][4] = 1;
+    level[8][6] = 1;
     
     const draw = () => {
       let canvas = document.querySelector('canvas')
@@ -86,13 +87,13 @@
       // Gravity
       if (!editing) {
         if (player.vy <= 0) player.vy -= .1
-        player.y += player.vy / 10
-        player.x += player.vx / 10
 
-        if (player.y < 0) {
-          player.y = 0
+        if (playerOnGround() && player.vy < 0) {
           player.vy = 0
         }
+
+        player.y += player.vy / 10
+        player.x += player.vx / 10
       }
 
       player.x = Math.max(3, player.x)
@@ -129,7 +130,7 @@
       ctx.textBaseline = 'bottom'
       ctx.textAlign = 'center'
       
-      ctx.translate(player.x*tileSize,player.y*tileSize)
+      ctx.translate((player.x + .5)*tileSize,player.y*tileSize)
       ctx.scale(player.direction, -1)
       ctx.rotate(.1*Math.sin(6 * frame * Math.PI/180)+player.vy/6)
       ctx.fillText(document.querySelector("[name=pc]").value, 0, 0)
