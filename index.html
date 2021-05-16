@@ -24,6 +24,13 @@
     </section>
     <canvas></canvas>
     <script>
+    const levelHeight = 8
+    const levelWidth = 128
+    const tileSize = 16
+
+    const air = 0
+    const ground = 1
+
     let editing = false
     
     let player = {
@@ -41,12 +48,8 @@
     let frame = 0
     
     const playerOnGround = () => {
-      return level[Math.ceil(player.x)][Math.round(player.y)] == 1
+      return level[Math.ceil(player.x)][Math.round(player.y)] == ground
     }
-
-    const levelHeight = 8
-    const levelWidth = 128
-    const tileSize = 16
 
     let level = []
 
