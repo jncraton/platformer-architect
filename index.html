@@ -41,7 +41,7 @@
     let frame = 0
     
     const playerOnGround = () => {
-      return player.y == 0
+      return level[Math.ceil(player.x)][Math.round(player.y)] == 1
     }
 
     const levelHeight = 8
