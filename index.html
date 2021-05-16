@@ -48,7 +48,7 @@
     let frame = 0
     
     const playerOnGround = () => {
-      return level[Math.round(player.x)][Math.round(player.y)] == ground
+      return level[Math.round(player.x)][Math.floor(player.y)] == ground
     }
 
     let level = []
