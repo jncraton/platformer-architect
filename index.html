@@ -51,6 +51,13 @@
       return level[Math.round(player.x)][Math.floor(player.y)] == ground
     }
 
+    const isPathable = (x, y) => {
+      return level[Math.floor(x)][Math.round(y)] == air &&
+             level[Math.floor(x)][Math.round(y)] == air &&
+             level[Math.ceil(x)][Math.round(y)] == air &&
+             level[Math.ceil(x)][Math.round(y)] == air
+    }
+
     let level = []
 
     for (let x = 0; x < levelWidth; x++) {
@@ -89,13 +96,15 @@
 
       // Gravity
       if (!editing) {
+        if (!isPathable(player.x + player.vx/10, player.y)) player.vx = 0
+      
         if (player.vy <= 0) player.vy -= .1
 
         if (playerOnGround() && player.vy < 0) {
           player.vy = 0
         }
 
-        player.y += player.vy / 10
+        player.y += player.vy / 20
         player.x += player.vx / 10
       }
 
