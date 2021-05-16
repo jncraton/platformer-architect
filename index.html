@@ -24,6 +24,8 @@
     </section>
     <canvas></canvas>
     <script>
+    let editing = false
+    
     let player = {
       x: 3,
       y: 3,
@@ -70,14 +72,17 @@
         player.jumpFramesRemaining -= 1
         if (!player.jumpFramesRemaining) player.vy = 0
       }
-      
-      if (player.vy <= 0) player.vy -= .1
-      player.y += player.vy / 10
-      player.x += player.vx / 10
 
-      if (player.y < 0) {
-        player.y = 0
-        player.vy = 0
+      // Gravity
+      if (!editing) {
+        if (player.vy <= 0) player.vy -= .1
+        player.y += player.vy / 10
+        player.x += player.vx / 10
+
+        if (player.y < 0) {
+          player.y = 0
+          player.vy = 0
+        }
       }
 
       player.x = Math.max(3, player.x)
@@ -123,8 +128,6 @@
 
     draw()
 
-    let editing = false
-    
     function toggleEditMode() {
       editing = !editing
       if (editing) {
@@ -135,9 +138,17 @@
     }
 
     document.addEventListener('keydown', e => {
-      if (e.key == 'ArrowRight') player.vx = 1
-      if (e.key == 'ArrowLeft') player.vx = -1
+      if (editing) {
+        if (e.key == 'ArrowUp') player.y += 1
+        if (e.key == 'ArrowDown') player.y -= 1
+        if (e.key == 'ArrowRight') player.x += 1
+        if (e.key == 'ArrowLeft') player.x -= 1
+      } else {
+        if (e.key == 'ArrowRight') player.vx = 1
+        if (e.key == 'ArrowLeft') player.vx = -1
+      }
       if (e.key == 'Escape') toggleEditMode()
+      
       if (e.key == ' ' && playerOnGround()) {
         player.vy = 3
         player.jumpFramesRemaining = 20
