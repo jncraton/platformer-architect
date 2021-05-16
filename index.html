@@ -158,16 +158,19 @@
         if (e.key == 'ArrowDown') player.y -= 1
         if (e.key == 'ArrowRight') player.x += 1
         if (e.key == 'ArrowLeft') player.x -= 1
+        if (e.key == ' ') {
+          level[Math.round(player.x)][Math.round(player.y)] = (level[Math.round(player.x)][Math.round(player.y)] + 1) % 2
+        }
       } else {
         if (e.key == 'ArrowRight') player.vx = 1
         if (e.key == 'ArrowLeft') player.vx = -1
+        if (e.key == ' ' && playerOnGround()) {
+          player.vy = 3
+          player.jumpFramesRemaining = 20
+        }
       }
       if (e.key == 'Escape') toggleEditMode()
       
-      if (e.key == ' ' && playerOnGround()) {
-        player.vy = 3
-        player.jumpFramesRemaining = 20
-      }
     })
 
     document.addEventListener('keyup', e => {
