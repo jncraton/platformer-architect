@@ -36,6 +36,14 @@
       x: 0,
     }
 
+    let actors = [
+      [0,0,1],
+      [1,0,1],
+      [2,0,1],
+      [3,0,1],
+      [4,0,1],
+    ]
+
     let frame = 0
     
     const playerOnGround = () => {
@@ -91,12 +99,10 @@
       // Get a full-height side scrolling canvas
 
       // Tiles
-      for (let x = 0; x < levelWidth; x+=1) {
-        for (let y = 0; y <= levelHeight; y += 1) {
-          ctx.fillStyle = `rgb(0,${(x*tileSize) % 256},${y*tileSize})`
-          ctx.fillRect(x*tileSize, y*tileSize, tileSize, tileSize)
-        }
-      }
+      actors.forEach(actor => {
+        ctx.fillStyle = `rgb(0,100,0)`
+        ctx.fillRect(actor[0]*tileSize, actor[1]*tileSize, tileSize, tileSize)
+      })
 
       // Actors
       ctx.save()
