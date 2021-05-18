@@ -43,6 +43,8 @@
     const air = 0
     const ground = 1
     const hazard = 2
+    const slider = 3
+    const flyer = 4
     const goal = 6
     const decoration = 7
 
@@ -185,6 +187,10 @@
             ctx.textAlign = 'center'
             
             ctx.translate((x + .5)*tileSize,y*tileSize)
+
+            if (level[x][y] == slider) ctx.translate(Math.sin(6 * frame * Math.PI/180)*tileSize,0)
+            if (level[x][y] == flyer) ctx.translate(0, Math.sin(6 * frame * Math.PI/180)*tileSize)
+            
             ctx.scale(1, -1)
             ctx.fillText(document.querySelector(`[name=sprite${level[x][y]}]`).value, 0, 0)
             ctx.restore()
