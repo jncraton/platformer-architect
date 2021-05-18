@@ -95,8 +95,10 @@
       }
     }
 
-    for (let x = 0; x < levelWidth; x++) {
-      if ((x % 8 && x % 7)) level[x][Math.floor(3-3*Math.sin(x/16))] = 1
+    if (!location.hash) {
+      for (let x = 0; x < levelWidth; x++) {
+        if ((x % 8 && x % 7)) level[x][Math.floor(3-3*Math.sin(x/16))] = 1
+      }
     }
 
     const draw = () => {
