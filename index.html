@@ -30,6 +30,9 @@
     </section>
     <canvas></canvas>
     <script>
+    // URL-safe base64
+    const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
+
     const levelHeight = 8
     const levelWidth = 128
     const tileSize = 16
@@ -43,50 +46,6 @@
     let editing = false
     
     let player 
-
-    const reset = () => {
-      player = {
-        x: 3,
-        y: 3,
-        vx: 0,
-        vy: 0,
-        direction: -1, // -1 is right, 1 is left
-      }
-    }
-
-    reset()
-
-    let screen = {
-      x: 0,
-    }
-
-    let frame = 0
-
-    // URL-safe base64
-    const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
-
-    const save = () => {
-      location.hash = ';' + level.flat()
-        .reduce((acc, value, i) => {
-          if (!(i % 2)) acc.push(8*value)
-          else acc.push(acc.pop() + value)
-          return acc
-        },[])
-        .map(i => chars[i]).join('')
-    }
-
-    const playerOnGround = () => {
-      return level[Math.floor(player.x)][Math.floor(player.y)] == ground ||
-             level[Math.ceil(player.x)][Math.floor(player.y)] == ground
-    }
-
-    const isPathable = (x, y) => {
-      return y > levelHeight - 1 ||
-            (level[Math.floor(x)][Math.round(y)] != ground &&
-             level[Math.floor(x)][Math.round(y)] != ground &&
-             level[Math.ceil(x)][Math.round(y)] != ground &&
-             level[Math.ceil(x)][Math.round(y)] != ground)
-    }
 
     let level = []
 
@@ -111,7 +70,49 @@
         }
       }
     }
-    load()
+
+    const reset = () => {
+      player = {
+        x: 3,
+        y: 3,
+        vx: 0,
+        vy: 0,
+        direction: -1, // -1 is right, 1 is left
+      }
+
+      load()
+    }
+
+    reset()
+
+    let screen = {
+      x: 0,
+    }
+
+    let frame = 0
+
+    const save = () => {
+      location.hash = ';' + level.flat()
+        .reduce((acc, value, i) => {
+          if (!(i % 2)) acc.push(8*value)
+          else acc.push(acc.pop() + value)
+          return acc
+        },[])
+        .map(i => chars[i]).join('')
+    }
+
+    const playerOnGround = () => {
+      return level[Math.floor(player.x)][Math.floor(player.y)] == ground ||
+             level[Math.ceil(player.x)][Math.floor(player.y)] == ground
+    }
+
+    const isPathable = (x, y) => {
+      return y > levelHeight - 1 ||
+            (level[Math.floor(x)][Math.round(y)] != ground &&
+             level[Math.floor(x)][Math.round(y)] != ground &&
+             level[Math.ceil(x)][Math.round(y)] != ground &&
+             level[Math.ceil(x)][Math.round(y)] != ground)
+    }
 
     const draw = () => {
       let canvas = document.querySelector('canvas')
