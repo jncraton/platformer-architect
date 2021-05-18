@@ -203,6 +203,13 @@
         if (e.key == ' ' && playerOnGround()) {
           player.vy = 3
           player.jumpFramesRemaining = 20
+          const audioCtx = new window.AudioContext()
+          const oscillator = audioCtx.createOscillator()
+          oscillator.type = 'square'
+          oscillator.frequency.setValueAtTime(220, audioCtx.currentTime)
+          oscillator.connect(audioCtx.destination)
+          oscillator.start()
+          setTimeout(() => {oscillator.stop()}, 150)
         }
       }
       if (e.key == 'Escape') toggleEditMode()      
