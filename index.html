@@ -198,12 +198,12 @@
 
             let offset = Math.sin(6 * frame * Math.PI/180)
 
-            if (level[x][y] == slider) {
+            if (level[x][y] == slider && !editing) {
               if (Math.round(x+offset) == Math.round(player.x) &&
                   Math.round(y) == Math.round(player.y)) reset()
               ctx.translate(offset*tileSize,0)
             }
-            if (level[x][y] == flyer) {
+            if (level[x][y] == flyer && !editing) {
               if (Math.round(x) == Math.round(player.x) &&
                   Math.round(y+offset) == Math.round(player.y)) reset()
               ctx.translate(0, Math.sin(6 * frame * Math.PI/180)*tileSize)
