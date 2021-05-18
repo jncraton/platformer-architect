@@ -151,6 +151,10 @@
 
       if (level[Math.round(player.x)][Math.round(player.y)] == hazard) reset()
 
+      // Goal pickup
+
+      if (level[Math.round(player.x)][Math.round(player.y)] == goal) level[Math.round(player.x)][Math.round(player.y)] = air
+
       // Victory
       if (player.x > levelWidth - 2) reset()
 
