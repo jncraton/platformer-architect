@@ -81,25 +81,28 @@
 
     let level = []
 
-    let b64data = location.hash.split(';').pop()
-    for (let x = 0; x < levelWidth; x++) {
-      level.push([])
-      for (let y = 0; y < levelHeight; y++) {
-        if (location.hash) {
-          let valuePair = chars.indexOf(b64data[Math.floor(.5*(x*levelHeight+y))])
-          let value = y % 2 ? valuePair % 8 : Math.floor(valuePair / 8)
-          level[x].push(value)
-        } else {
-          level[x].push(0)
+    const load = () => {
+      let b64data = location.hash.split(';').pop()
+      for (let x = 0; x < levelWidth; x++) {
+        level.push([])
+        for (let y = 0; y < levelHeight; y++) {
+          if (location.hash) {
+            let valuePair = chars.indexOf(b64data[Math.floor(.5*(x*levelHeight+y))])
+            let value = y % 2 ? valuePair % 8 : Math.floor(valuePair / 8)
+            level[x].push(value)
+          } else {
+            level[x].push(0)
+          }
+        }
+      }
+
+      if (!location.hash) {
+        for (let x = 0; x < levelWidth; x++) {
+          if ((x % 8 && x % 7)) level[x][Math.floor(3-3*Math.sin(x/16))] = 1
         }
       }
     }
-
-    if (!location.hash) {
-      for (let x = 0; x < levelWidth; x++) {
-        if ((x % 8 && x % 7)) level[x][Math.floor(3-3*Math.sin(x/16))] = 1
-      }
-    }
+    load()
 
     const draw = () => {
       let canvas = document.querySelector('canvas')
