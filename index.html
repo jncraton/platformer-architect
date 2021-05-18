@@ -22,6 +22,7 @@
     <section id=properties>
     <label>Player character<input name=sprite0 value="🐈"/></label>
     <label>Non-pathable block<input name=sprite1 value="🧱"/></label>
+    <label>Decoration block<input name=sprite8 value="☁️"/></label>
     </section>
     <canvas></canvas>
     <script>
@@ -214,6 +215,9 @@
         if (e.key == ' ') {
           level[Math.round(player.x)][Math.round(player.y)] = (level[Math.round(player.x)][Math.round(player.y)] + 1) % 2
         }
+        if (e.key == '0') level[Math.round(player.x)][Math.round(player.y)] = 0
+        if (e.key == '1') level[Math.round(player.x)][Math.round(player.y)] = 1
+        if (e.key == '8') level[Math.round(player.x)][Math.round(player.y)] = 8
         save()
       } else {
         if (e.key == 'ArrowRight') player.vx = 1
