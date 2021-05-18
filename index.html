@@ -87,6 +87,10 @@
     level[9][2] = 1;
     level[10][1] = 1;
     level[11][8] = 1;
+
+    for (let x = 0; x < levelWidth; x++) {
+      level[x][0] = 1;
+    }
     
     const draw = () => {
       let canvas = document.querySelector('canvas')
@@ -98,9 +102,6 @@
       if (Math.sign(player.vx)) {
         player.direction = -Math.sign(player.vx)
       }
-
-      // Death
-      if (player.y < -1) reset()
 
       // Physics
       if (player.jumpFramesRemaining) {
@@ -123,6 +124,12 @@
       }
 
       player.x = Math.max(3, player.x)
+
+      // Death
+      if (player.y < -1) reset()
+
+      // Victory
+      if (player.x > levelWidth - 2) reset()
 
       // Adjust screen-x based on player x
       if (screen.x - player.x > canvas.width - tileSize) {
