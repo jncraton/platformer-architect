@@ -213,7 +213,7 @@
     const playSound = (freq, duration) => {
       const audioCtx = new window.AudioContext()
       const oscillator = audioCtx.createOscillator()
-      oscillator.type = 'square'
+      oscillator.type = 'sawtooth'
       oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime)
       oscillator.connect(audioCtx.destination)
       oscillator.start()
@@ -240,7 +240,7 @@
         if (e.key == ' ' && playerOnGround()) {
           player.vy = 3
           player.jumpFramesRemaining = 20
-          playSound(220,150)
+          playSound(110,150)
         }
       }
       if (e.key == 'Escape') toggleEditMode()      
