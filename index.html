@@ -23,6 +23,7 @@
     <label>Player character<input name=sprite0 value="🐈"/></label>
     <ol>
     <li><label>Non-pathable block<input name=sprite1 value="🧱"/></label>
+    <li><label>Hazard block<input name=sprite2 value="🔥"/></label>
     <li><label>Goal block<input name=sprite6 value="🥛"/></label>
     <li><label>Decoration block<input name=sprite7 value="☁️"/></label>
     </ol>
@@ -233,6 +234,7 @@
         }
         if (e.key == '0') level[Math.round(player.x)][Math.round(player.y)] = 0
         if (e.key == '1') level[Math.round(player.x)][Math.round(player.y)] = 1
+        if (e.key == '2') level[Math.round(player.x)][Math.round(player.y)] = 2
         if (e.key == '6') level[Math.round(player.x)][Math.round(player.y)] = 6
         if (e.key == '7') level[Math.round(player.x)][Math.round(player.y)] = 7
         save()
