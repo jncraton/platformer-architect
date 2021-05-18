@@ -74,10 +74,19 @@
 
     let level = []
 
-    for (let x = 0; x < levelWidth; x++) {
-      level.push([])
-      for (let y = 0; y < levelHeight; y++) {
-        level[x].push(0)
+    if (location.hash) {
+      for (let x = 0; x < levelWidth; x++) {
+        level.push([])
+        for (let y = 0; y < levelHeight; y++) {
+          level[x].push(chars.indexOf(location.hash[x*levelHeight+y]))
+        }
+      }
+    } else {
+      for (let x = 0; x < levelWidth; x++) {
+        level.push([])
+        for (let y = 0; y < levelHeight; y++) {
+          level[x].push(0)
+        }
       }
     }
 
