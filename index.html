@@ -20,15 +20,15 @@
 
   <body>
     <section id=properties>
-    <label>Player character<input name=sprite0 value="🐈"/></label>
+    <label>Player character<input name=tileset /></label>
     <ol>
-    <li><label>Solid<input name=sprite1 value="🧱"/></label>
-    <li><label>Hazard<input name=sprite2 value="🔥"/></label>
-    <li><label>Slider<input name=sprite3 value="🐍"/></label>
-    <li><label>Flyer<input name=sprite4 value="🦇"/></label>
-    <li><label>TBD<input name=sprite5 value="?"/></label>
-    <li><label>Goal<input name=sprite6 value="🥛"/></label>
-    <li><label>Decoration<input name=sprite7 value="☁️"/></label>
+    <li>Solid
+    <li>Hazard
+    <li>Slider
+    <li>Flyer
+    <li>TBD
+    <li>Goal
+    <li>Decoration
     </ol>
     </section>
     <canvas></canvas>
@@ -48,12 +48,20 @@
     const goal = 6
     const decoration = 7
 
-    let editing = false   
+    let editing = false
     let player 
     let level
+    let sprites
 
     const load = () => {
       level = []
+
+      spritesStr = "🐈🧱🔥🐍🦇?🥛☁️"
+      if (location.hash) spritesStr = location.hash.split(';')[0]
+      document.querySelector('[name=tileset]').value = spritesStr
+      sprites = []
+      for (sprite of spritesStr) sprites.push(sprite)
+      
       let b64data = location.hash.split(';').pop()
       for (let x = 0; x < levelWidth; x++) {
         level.push([])
@@ -202,7 +210,7 @@
             }
             
             ctx.scale(1, -1)
-            ctx.fillText(document.querySelector(`[name=sprite${level[x][y]}]`).value, 0, 0)
+            ctx.fillText(sprites[level[x][y]], 0, 0)
             ctx.restore()
           }
         }
@@ -217,7 +225,7 @@
       ctx.translate((player.x + .5)*tileSize,player.y*tileSize)
       ctx.scale(player.direction, -1)
       ctx.rotate(.1*Math.sin(6 * frame * Math.PI/180)+player.vy/6)
-      ctx.fillText(document.querySelector("[name=sprite0]").value, 0, 0)
+      ctx.fillText(sprites[0], 0, 0)
       ctx.restore()
 
       frame += 1
