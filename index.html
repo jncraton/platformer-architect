@@ -53,8 +53,11 @@
 
     let frame = 0
 
+    // URL-safe base64
+    const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
+
     const save = () => {
-      location.hash = ''
+      location.hash = level.flat().map(i => chars[i]).join('')
     }
     
     const playerOnGround = () => {
@@ -184,6 +187,7 @@
         if (e.key == ' ') {
           level[Math.round(player.x)][Math.round(player.y)] = (level[Math.round(player.x)][Math.round(player.y)] + 1) % 2
         }
+        save()
       } else {
         if (e.key == 'ArrowRight') player.vx = 1
         if (e.key == 'ArrowLeft') player.vx = -1
@@ -192,8 +196,7 @@
           player.jumpFramesRemaining = 20
         }
       }
-      if (e.key == 'Escape') toggleEditMode()
-      
+      if (e.key == 'Escape') toggleEditMode()      
     })
 
     document.addEventListener('keyup', e => {
