@@ -210,6 +210,16 @@
       }
     }
 
+    const playSound = (freq, duration) => {
+      const audioCtx = new window.AudioContext()
+      const oscillator = audioCtx.createOscillator()
+      oscillator.type = 'square'
+      oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime)
+      oscillator.connect(audioCtx.destination)
+      oscillator.start()
+      setTimeout(() => {oscillator.stop()}, duration)
+    }
+
     document.addEventListener('keydown', e => {
       if (editing) {
         if (e.key == 'ArrowUp') player.y += 1
@@ -230,13 +240,7 @@
         if (e.key == ' ' && playerOnGround()) {
           player.vy = 3
           player.jumpFramesRemaining = 20
-          const audioCtx = new window.AudioContext()
-          const oscillator = audioCtx.createOscillator()
-          oscillator.type = 'square'
-          oscillator.frequency.setValueAtTime(220, audioCtx.currentTime)
-          oscillator.connect(audioCtx.destination)
-          oscillator.start()
-          setTimeout(() => {oscillator.stop()}, 150)
+          playSound(220,150)
         }
       }
       if (e.key == 'Escape') toggleEditMode()      
