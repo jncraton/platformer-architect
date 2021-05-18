@@ -274,7 +274,7 @@
         if (e.key == ' ') {
           level[Math.round(player.x)][Math.round(player.y)] = (level[Math.round(player.x)][Math.round(player.y)] + 1) % 2
         }
-        for (key of '1234567') {
+        for (key of '01234567') {
           if (e.key == key) level[Math.round(player.x)][Math.round(player.y)] = parseInt(key)
         }
         save()
