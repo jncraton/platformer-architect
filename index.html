@@ -36,6 +36,7 @@
 
     const air = 0
     const ground = 1
+    const hazard = 2
     const goal = 6
     const decoration = 7
 
@@ -146,6 +147,8 @@
 
       // Death
       if (player.y < -1) reset()
+
+      if (level[Math.round(player.x)][Math.round(player.y)] == hazard) reset()
 
       // Victory
       if (player.x > levelWidth - 2) reset()
