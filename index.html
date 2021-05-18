@@ -158,7 +158,7 @@
         if (level[Math.round(player.x)][Math.round(player.y)] == goal) level[Math.round(player.x)][Math.round(player.y)] = air
 
         // Victory
-        if (player.x > levelWidth - 2) reset()
+        if (level.flat().every(block => block != goal)) reset()
       }
       
       // Adjust screen-x based on player x
