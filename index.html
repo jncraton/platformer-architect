@@ -99,6 +99,9 @@
         player.direction = -Math.sign(player.vx)
       }
 
+      // Death
+      if (player.y < -1) reset()
+
       // Physics
       if (player.jumpFramesRemaining) {
         player.jumpFramesRemaining -= 1
