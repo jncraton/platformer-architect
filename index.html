@@ -241,11 +241,9 @@
         if (e.key == ' ') {
           level[Math.round(player.x)][Math.round(player.y)] = (level[Math.round(player.x)][Math.round(player.y)] + 1) % 2
         }
-        if (e.key == '0') level[Math.round(player.x)][Math.round(player.y)] = 0
-        if (e.key == '1') level[Math.round(player.x)][Math.round(player.y)] = 1
-        if (e.key == '2') level[Math.round(player.x)][Math.round(player.y)] = 2
-        if (e.key == '6') level[Math.round(player.x)][Math.round(player.y)] = 6
-        if (e.key == '7') level[Math.round(player.x)][Math.round(player.y)] = 7
+        for (key of '1234567') {
+          if (e.key == key) level[Math.round(player.x)][Math.round(player.y)] = parseInt(key)
+        }
         save()
       } else {
         if (e.key == 'ArrowRight') player.vx = 1
