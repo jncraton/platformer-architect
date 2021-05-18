@@ -66,10 +66,11 @@
     }
 
     const isPathable = (x, y) => {
-      return level[Math.floor(x)][Math.round(y)] == air &&
+      return y > levelHeight - 1 ||
+            (level[Math.floor(x)][Math.round(y)] == air &&
              level[Math.floor(x)][Math.round(y)] == air &&
              level[Math.ceil(x)][Math.round(y)] == air &&
-             level[Math.ceil(x)][Math.round(y)] == air
+             level[Math.ceil(x)][Math.round(y)] == air)
     }
 
     let level = []
