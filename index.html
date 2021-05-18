@@ -20,7 +20,8 @@
 
   <body>
     <section id=properties>
-    <input name=pc value="🐈"/>
+    <label>Player character<input name=sprite0 value="🐈"/></label>
+    <label>Non-pathable block<input name=sprite1 value="🧱"/></label>
     </section>
     <canvas></canvas>
     <script>
@@ -161,7 +162,7 @@
       // Tiles
       for (let x = 0; x < levelWidth; x++) {
         for (let y = 0; y < levelHeight; y++) {
-          if (level[x][y] == 1) {
+          if (level[x][y] > 0) {
             ctx.save()
             ctx.font = '20px noto sans'
             ctx.textBaseline = 'bottom'
@@ -169,7 +170,7 @@
             
             ctx.translate((x + .5)*tileSize,y*tileSize)
             ctx.scale(1, -1)
-            ctx.fillText("🧱", 0, 0)
+            ctx.fillText(document.querySelector(`[name=sprite${level[x][y]}]`).value, 0, 0)
             ctx.restore()
           }
         }
@@ -184,7 +185,7 @@
       ctx.translate((player.x + .5)*tileSize,player.y*tileSize)
       ctx.scale(player.direction, -1)
       ctx.rotate(.1*Math.sin(6 * frame * Math.PI/180)+player.vy/6)
-      ctx.fillText(document.querySelector("[name=pc]").value, 0, 0)
+      ctx.fillText(document.querySelector("[name=sprite0]").value, 0, 0)
       ctx.restore()
 
       frame += 1
