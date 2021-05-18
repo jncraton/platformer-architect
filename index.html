@@ -51,16 +51,22 @@
     let editing = false
     let player 
     let level
-    let sprites
+    let sprites, spritesStr
+
+    const loadSprites = (e) => {
+      spritesStr = "🐈🧱🔥🐍🦇?🥛☁️"
+      if (e) spritesStr = e.target.value
+      else if (location.hash) spritesStr = decodeURIComponent(location.hash.slice(1).split(';')[0])
+      sprites = []
+      for (sprite of spritesStr) sprites.push(sprite)
+      console.log(spritesStr, sprites)
+    }
 
     const load = () => {
       level = []
 
-      spritesStr = "🐈🧱🔥🐍🦇?🥛☁️"
-      if (location.hash) spritesStr = decodeURIComponent(location.hash.slice(1).split(';')[0])
+      loadSprites()
       document.querySelector('[name=tileset]').value = spritesStr
-      sprites = []
-      for (sprite of spritesStr) sprites.push(sprite)
       
       let b64data = location.hash.split(';').pop()
       for (let x = 0; x < levelWidth; x++) {
@@ -289,6 +295,8 @@
         player.jumpFramesRemaining = 0
       }
     })
+
+    document.querySelector('[name=tileset]').addEventListener('input', loadSprites)
     </script>
   </body>
 </html>
