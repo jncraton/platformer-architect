@@ -146,18 +146,20 @@
 
       player.x = Math.max(3, player.x)
 
-      // Death
-      if (player.y < -1) reset()
+      if (!editing) {
+        // Death
+        if (player.y < -1) reset()
 
-      if (level[Math.round(player.x)][Math.round(player.y)] == hazard) reset()
+        if (level[Math.round(player.x)][Math.round(player.y)] == hazard) reset()
 
-      // Goal pickup
+        // Goal pickup
 
-      if (level[Math.round(player.x)][Math.round(player.y)] == goal) level[Math.round(player.x)][Math.round(player.y)] = air
+        if (level[Math.round(player.x)][Math.round(player.y)] == goal) level[Math.round(player.x)][Math.round(player.y)] = air
 
-      // Victory
-      if (player.x > levelWidth - 2) reset()
-
+        // Victory
+        if (player.x > levelWidth - 2) reset()
+      }
+      
       // Adjust screen-x based on player x
       if (screen.x - player.x > canvas.width - tileSize) {
         screen.x += 1
