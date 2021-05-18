@@ -52,6 +52,10 @@
     }
 
     let frame = 0
+
+    const save = () => {
+      location.hash = ''
+    }
     
     const playerOnGround = () => {
       return level[Math.floor(player.x)][Math.floor(player.y)] == ground ||
