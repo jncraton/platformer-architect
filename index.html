@@ -57,9 +57,9 @@
     const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
 
     const save = () => {
-      location.hash = level.flat()
+      location.hash = ';' + level.flat()
         .reduce((acc, value, i) => {
-          if (i % 2) acc.push(value)
+          if (!(i % 2)) acc.push(8*value)
           else acc.push(acc.pop() + value)
           return acc
         },[])
@@ -81,11 +81,14 @@
 
     let level = []
 
+    let b64data = location.hash.split(';').pop()
     for (let x = 0; x < levelWidth; x++) {
       level.push([])
       for (let y = 0; y < levelHeight; y++) {
         if (location.hash) {
-          level[x].push(chars.indexOf(location.hash[x*levelHeight+y]))
+          let valuePair = chars.indexOf(b64data[Math.floor(.5*(x*levelHeight+y))])
+          let value = y % 2 ? valuePair % 8 : Math.floor(valuePair / 8)
+          level[x].push(value)
         } else {
           level[x].push(0)
         }
