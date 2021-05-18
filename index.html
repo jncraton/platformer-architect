@@ -200,9 +200,10 @@
       editing = !editing
       if (editing) {
         document.querySelector("#properties").style.display = 'block'
+        player.x = Math.ceil(player.x)
+        player.y = Math.ceil(player.y)
       } else {
         document.querySelector("#properties").style.display = 'none'
-        reset()
       }
     }
 
