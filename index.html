@@ -56,8 +56,9 @@
     const loadSprites = (e) => {
       spritesStr = "🐈🧱🔥🐍🦇?🥛☁️"
       if (e) spritesStr = e.target.value
-      else if (location.hash) {
-        spritesStr = decodeURIComponent(location.hash.slice(1).split(';')[0])
+      else {
+        if (location.hash)
+          spritesStr = decodeURIComponent(location.hash.slice(1).split(';')[0])
         document.querySelector('[name=tileset]').value = spritesStr
       }
 
