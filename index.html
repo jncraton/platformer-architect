@@ -68,6 +68,7 @@
         for (let x = 0; x < levelWidth; x++) {
           if ((x % 8 && x % 7)) level[x][Math.floor(3-3*Math.sin(x/16))] = 1
         }
+        level[126][3] = goal
       }
     }
 
