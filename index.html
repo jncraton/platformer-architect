@@ -43,13 +43,12 @@
     const goal = 6
     const decoration = 7
 
-    let editing = false
-    
+    let editing = false   
     let player 
-
-    let level = []
+    let level
 
     const load = () => {
+      level = []
       let b64data = location.hash.split(';').pop()
       for (let x = 0; x < levelWidth; x++) {
         level.push([])
