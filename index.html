@@ -188,8 +188,18 @@
             
             ctx.translate((x + .5)*tileSize,y*tileSize)
 
-            if (level[x][y] == slider) ctx.translate(Math.sin(6 * frame * Math.PI/180)*tileSize,0)
-            if (level[x][y] == flyer) ctx.translate(0, Math.sin(6 * frame * Math.PI/180)*tileSize)
+            let offset = Math.sin(6 * frame * Math.PI/180)
+
+            if (level[x][y] == slider) {
+              if (Math.round(x+offset) == Math.round(player.x) &&
+                  Math.round(y) == Math.round(player.y)) reset()
+              ctx.translate(offset*tileSize,0)
+            }
+            if (level[x][y] == flyer) {
+              if (Math.round(x) == Math.round(player.x) &&
+                  Math.round(y+offset) == Math.round(player.y)) reset()
+              ctx.translate(0, Math.sin(6 * frame * Math.PI/180)*tileSize)
+            }
             
             ctx.scale(1, -1)
             ctx.fillText(document.querySelector(`[name=sprite${level[x][y]}]`).value, 0, 0)
