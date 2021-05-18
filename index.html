@@ -22,7 +22,7 @@
     <section id=properties>
     <label>Player character<input name=sprite0 value="🐈"/></label>
     <label>Non-pathable block<input name=sprite1 value="🧱"/></label>
-    <label>Decoration block<input name=sprite8 value="☁️"/></label>
+    <label>Decoration block<input name=sprite7 value="☁️"/></label>
     </section>
     <canvas></canvas>
     <script>
@@ -75,10 +75,10 @@
 
     const isPathable = (x, y) => {
       return y > levelHeight - 1 ||
-            (level[Math.floor(x)][Math.round(y)] == air &&
-             level[Math.floor(x)][Math.round(y)] == air &&
-             level[Math.ceil(x)][Math.round(y)] == air &&
-             level[Math.ceil(x)][Math.round(y)] == air)
+            (level[Math.floor(x)][Math.round(y)] != ground &&
+             level[Math.floor(x)][Math.round(y)] != ground &&
+             level[Math.ceil(x)][Math.round(y)] != ground &&
+             level[Math.ceil(x)][Math.round(y)] != ground)
     }
 
     let level = []
@@ -217,7 +217,7 @@
         }
         if (e.key == '0') level[Math.round(player.x)][Math.round(player.y)] = 0
         if (e.key == '1') level[Math.round(player.x)][Math.round(player.y)] = 1
-        if (e.key == '8') level[Math.round(player.x)][Math.round(player.y)] = 8
+        if (e.key == '7') level[Math.round(player.x)][Math.round(player.y)] = 7
         save()
       } else {
         if (e.key == 'ArrowRight') player.vx = 1
