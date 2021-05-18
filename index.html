@@ -101,8 +101,6 @@
 
       // Gravity
       if (!editing) {
-        if (!isPathable(player.x + player.vx/10, player.y)) player.vx = 0
-      
         if (player.vy <= 0) player.vy -= .1
 
         if (playerOnGround() && player.vy < 0) {
@@ -110,7 +108,8 @@
         }
 
         player.y += player.vy / 20
-        player.x += player.vx / 10
+
+        if (isPathable(player.x + player.vx/10, player.y)) player.x += player.vx / 10
       }
 
       player.x = Math.max(3, player.x)
